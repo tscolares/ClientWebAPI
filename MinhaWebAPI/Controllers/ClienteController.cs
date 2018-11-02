@@ -75,9 +75,11 @@ namespace MinhaWebAPI.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Route("excluir/{id}")]
+        public void Excluir(int id)
         {
+            new ClienteModel().Excluir(id);
         }
     }
 }
