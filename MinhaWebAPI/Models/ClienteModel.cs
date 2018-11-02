@@ -106,5 +106,29 @@ namespace MinhaWebAPI.Models
             return item;
 
         }
+
+        public void AtualizarCliente()
+        {
+            DAL objDAL = new DAL();
+
+            string sql = "update cliente set " +
+                         $"nome= '{Nome}'," +
+                         $" data_cadastro = '{DateTime.Parse(Data_Cadastro).ToString("yyyy/MM/dd")}', " +
+                         $"cpf_cnpj = '{Cpf_Cnpj}', " +
+                         $"data_nascimento = '{DateTime.Parse(Data_Nascimento).ToString("yyyy/MM/dd")}', " +
+                         $"tipo = '{Tipo}', " +
+                         $"telefone = '{Telefone}', " +
+                         $"email = '{Email}', " +
+                         $"cep = '{Cep}', " +
+                         $"logradouro = '{Logradouro}', " +
+                         $"numero = '{Numero}', " +
+                         $"bairro = '{Bairro}', " +
+                         $"complemento = '{Complemento}', " +
+                         $"cidade = '{Cidade}', " +
+                         $"uf = '{UF}'" +
+                         $"where id = {Id}";
+                         
+            objDAL.ExecutarComandoSQL(sql);
+        }
     }
 }
