@@ -8,7 +8,7 @@ namespace MinhaWebAPI.Util
 {
     public class Autenticacao
     {
-        public static string TOKEN = "1234567";
+        public static string TOKEN = "1234567asdf";
         public static string FALHA_AUTENTICACAO = "Falha na Autenticação...Token informado é inválido!";
         IHttpContextAccessor contextAccessor;
 
