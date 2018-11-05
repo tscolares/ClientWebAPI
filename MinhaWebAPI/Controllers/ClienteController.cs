@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MinhaWebAPI.Models;
 using MinhaWebAPI.Util;
@@ -12,6 +13,13 @@ namespace MinhaWebAPI.Controllers
     [Route("api/[controller]")]
     public class ClienteController : Controller
     {
+        Autenticacao AutenticacaoServico;
+
+        public ClienteController(IHttpContextAccessor context)
+        {
+            AutenticacaoServico = new Autenticacao(context);
+        }
+
         // GET api/values
         [HttpGet]
         [Route("listagem")]
@@ -77,9 +85,24 @@ namespace MinhaWebAPI.Controllers
         // DELETE api/values/5
         [HttpDelete]
         [Route("excluir/{id}")]
-        public void Excluir(int id)
+        public ReturnAllServices Excluir(int id)
         {
-            new ClienteModel().Excluir(id);
+            ReturnAllServices retorno = new ReturnAllServices();
+
+            try
+            {
+                retorno.Result = true;
+                retorno.ErrorMessage = "Cliente excluído com sucesso";
+                AutenticacaoServico.Autenticar();
+                new ClienteModel().Excluir(id);
+            }
+            catch (Exception ex)
+            {
+                retorno.Result = false;
+                retorno.ErrorMessage = "Erro ao tentar excluir um cliente: " + ex.Message;
+            }
+
+            return retorno;
         }
     }
 }
