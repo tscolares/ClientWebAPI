@@ -33,5 +33,30 @@ namespace AplicacaoCliente.Models
 
             return retorno;
         }
+
+        public ClienteModel CarregarId(int? id)
+        {
+            ClienteModel retorno = new ClienteModel();
+            string json = WebAPI.RequestGET("cliente", id.ToString());
+            retorno = JsonConvert.DeserializeObject<ClienteModel>(json);
+            return retorno;
+        }
+
+        public void Inserir()
+        {
+            string jsonData = JsonConvert.SerializeObject(this);
+
+            if (Id == 0)
+            {
+                WebAPI.RequestPOST("registrarcliente", jsonData);
+            }
+            else
+            {
+                WebAPI.RequestPUT("atualizar/" + Id, jsonData);
+            }
+
+            
+        }
+
     }
 }

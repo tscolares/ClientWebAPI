@@ -18,6 +18,30 @@ namespace AplicacaoCliente.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Registrar(int? id)
+        {
+            if (id != null)
+            {
+                ViewBag.Registro = new ClienteModel().CarregarId(id);
+            }
+
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registrar(ClienteModel dados)
+        {
+            dados.Inserir();
+            return View();
+        }
+
+        public IActionResult Excluir()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

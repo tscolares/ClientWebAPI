@@ -42,6 +42,25 @@ namespace AplicacaoCliente.Util
             return responseString;
         }
 
+        public static string RequestPUT(string metodo, string jsonData)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(URI + metodo);
+            var data = Encoding.ASCII.GetBytes(jsonData);
+            request.Method = "PUT";
+            request.Headers.Add("Token", TOKEN);
+            request.ContentType = "application/json";
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+            var response = (HttpWebResponse)request.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            return responseString;
+        }
+
         //var request = (HttpWebRequest)WebRequest.Create("https://viacep.com.br/ws/01001000/json/");
         //var response = (HttpWebResponse)request.GetResponse();
         //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -50,9 +69,9 @@ namespace AplicacaoCliente.Util
 
 
 
-            //var request = (HttpWebRequest)HttpWebRequest.Create("http://localhost:21613/api/webservice/lercliente/5");
-            //var response = (HttpWebResponse)request.GetResponse();
-            //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            //Console.WriteLine("A resposta do método GET é: " + responseString);
+        //var request = (HttpWebRequest)HttpWebRequest.Create("http://localhost:21613/api/webservice/lercliente/5");
+        //var response = (HttpWebResponse)request.GetResponse();
+        //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+        //Console.WriteLine("A resposta do método GET é: " + responseString);
     }
 }
