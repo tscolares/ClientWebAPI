@@ -13,14 +13,25 @@ namespace AplicacaoCliente.Util
         public static string URI = "http://localhost:64858/api/cliente/";
         public static string TOKEN = "1234567asdf";
 
-        public static string RequestGET(string metodo, string parametro)
+        public static string RequestGET_DELETE(string metodo, string parametro, string tipo)
         {
             var request = (HttpWebRequest)WebRequest.Create(URI + metodo + "/" + parametro);
             request.Headers.Add("Token", TOKEN);
+            request.Method = tipo;
             var response = (HttpWebResponse)request.GetResponse();
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
             return responseString;
+        }
+
+        public static string RequestGET(string metodo, string parametro)
+        {
+            return RequestGET_DELETE(metodo, parametro, "GET");
+        }
+
+        public static string RequestDELETE(string metodo, string parametro)
+        {
+            return RequestGET_DELETE(metodo, parametro, "DELETE");
         }
 
         public static string RequestPOST(string metodo, string jsonData)

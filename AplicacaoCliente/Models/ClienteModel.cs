@@ -58,5 +58,10 @@ namespace AplicacaoCliente.Models
             
         }
 
+        public void Excluir(int id)
+        {
+            string json = WebAPI.RequestDELETE("excluir", id.ToString());
+        }
+
     }
 }

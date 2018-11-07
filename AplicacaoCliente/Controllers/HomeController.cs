@@ -37,8 +37,15 @@ namespace AplicacaoCliente.Controllers
             return View();
         }
 
-        public IActionResult Excluir()
+        public IActionResult Excluir(int id)
         {
+            ViewData["ClienteID"] = id.ToString();
+            return View();
+        }
+
+        public IActionResult ExcluirCliente(int id)
+        {
+            new ClienteModel().Excluir(id);
             return View();
         }
 
